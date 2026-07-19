@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo handleNestedObject - Laboratorio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        
+        .container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            overflow: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .output {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 15px;
+            border-radius: 4px;
+            overflow: auto;
+            margin-top: 20px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #721c24;
+        }
+        
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Ejemplo del Laboratorio: handleNestedObject</h1>
+    
+    <div class="note">
+        <p><strong>Nota:</strong> Este ejemplo implementa exactamente el caso del laboratorio, pero con una modificación:</p>
+        <p>La propiedad <code>hobbies</code> se cambió de array <code>["Reading", "Hiking"]</code> a objeto <code>{primary: "Reading", secondary: "Hiking"}</code> porque nuestra función <code>handleNestedObject</code> solo admite objetos, no arrays.</p>
+    </div>
+    
+    <div class="warning">
+        <p><strong>⚠️ Importante:</strong> Nuestra función <code>handleNestedObject</code> es estricta y SOLO admite objetos anidados. Rechaza arrays en cualquier nivel.</p>
+    </div>
+    
+    <div class="container">
+        <div class="panel">
+            <h2>📋 Código JavaScript</h2>
+            <p>Este es el código del ejemplo del laboratorio, adaptado para nuestra función:</p>
+            
+            <pre><code>// Objeto original del laboratorio (modificado: hobbies como objeto, no array)
+let userProfile = {
+  id: 1,
+  name: "John Doe",
+  address: {
+    street: "123 Main St",
+    city: "Anytown",
+    zip: "12345"
+  },
+  hobbies: {  // Cambiado de array a objeto
+    primary: "Reading",
+    secondary: "Hiking"
+  },
+  social: {
+    twitter: "@johndoe",
+    facebook: "johndoe123"
+  }
+};
+
+// Updating a nested property and adding a new property
+const updatedProfile = handleNestedObject(userProfile, {
+  address: { city: "New City" },
+  social: { facebook: "updatedFacebook" }
+});
+
+console.log("Objeto original:", userProfile);
+console.log("Objeto actualizado:", updatedProfile);
+console.log("¿Es el mismo objeto?", userProfile === updatedProfile);
+console.log("¿Es el mismo objeto address?", userProfile.address === updatedProfile.address);
+console.log("¿Es el mismo objeto social?", userProfile.social === updatedProfile.social);</code></pre>
+            
+            <button onclick="runExample()">▶️ Ejecutar Ejemplo</button>
+        </div>
+        
+        <div class="panel">
+            <h2>📊 Resultados</h2>
+            <p>Los resultados aparecerán aquí después de ejecutar el ejemplo:</p>
+            <div id="results" class="output">
+                Esperando ejecución...
+            </div>
+            
+            <h3>Verificación de Inmutabilidad:</h3>
+            <div id="immutability-check" style="margin-top: 10px;">
+                <!-- Los resultados de inmutabilidad aparecerán aquí -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="comparison">
+        <div class="comparison-item">
+            <h3>🔍 Comparación: Objeto Original</h3>
+            <div id="original-object" class="output">
+                <!-- Objeto original aparecerá aquí -->
+            </div>
+        </div>
+        
+        <div class="comparison-item">
+            <h3>🔄 Comparación: Objeto Actualizado</h3>
+            <div id="updated-object" class="output">
+                <!-- Objeto actualizado aparecerá aquí -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel">
+        <h2>📝 Explicación del Ejemplo</h2>
+        <p>Este ejemplo demuestra:</p>
+        <ol>
+            <li><strong>Inmutabilidad:</strong> El objeto <code>userProfile</code> original NO se modifica.</li>
+            <li><strong>Actualización anidada:</strong> La propiedad <code>city</code> dentro de <code>address</code> se cambia de "Anytown" a "New City".</li>
+            <li><strong>Actualización anidada:</strong> La propiedad <code>facebook</code> dentro de <code>social</code> se cambia de "johndoe123" a "updatedFacebook".</li>
+            <li><strong>Copia profunda:</strong> Se crean nuevos objetos para las propiedades modificadas, no referencias.</li>
+        </ol>
+        
+        <p><strong>Salida esperada (formateada):</strong></p>
+        <pre><code>{
+  id: 1,
+  name: "John Doe",
+  address: {
+    street: "123 Main St",
+    city: "New City",      // ← Cambiado
+    zip: "12345"
+  },
+  hobbies: {
+    primary: "Reading",
+    secondary: "Hiking"
+  },
+  social: {
+    twitter: "@johndoe",
+    facebook: "updatedFacebook"  // ← Cambiado
+  }
+}</code></pre>
+    </div>
+    
+    <script src="handleNestedObject.js"></script>
+    <script>
+        function formatObject(obj) {
+            return JSON.stringify(obj, null, 2);
+        }
+        
+        function runExample() {
+            // Limpiar resultados anteriores
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('immutability-check').innerHTML = '';
+            document.getElementById('original-object').innerHTML = '';
+            document.getElementById('updated-object').innerHTML = '';
+            
+            try {
+                // Objeto original del laboratorio (modificado: hobbies como objeto, no array)
+                let userProfile = {
+                    id: 1,
+                    name: "John Doe",
+                    address: {
+                        street: "123 Main St",
+                        city: "Anytown",
+                        zip: "12345"
+                    },
+                    hobbies: {  // Cambiado de array a objeto
+                        primary: "Reading",
+                        secondary: "Hiking"
+                    },
+                    social: {
+                        twitter: "@johndoe",
+                        facebook: "johndoe123"
+                    }
+                };
+                
+                // Guardar una referencia al objeto original para comparaciones
+                const originalUserProfile = userProfile;
+                const originalAddress = userProfile.address;
+                const originalSocial = userProfile.social;
+                const originalHobbies = userProfile.hobbies;
+                
+                // Updating a nested property and adding a new property
+                const updatedProfile = handleNestedObject(userProfile, {
+                    address: { city: "New City" },
+                    social: { facebook: "updatedFacebook" }
+                });
+                
+                // Mostrar resultados en la consola virtual
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = '';
+                
+                // Mostrar objetos
+                document.getElementById('original-object').innerHTML = formatObject(originalUserProfile);
+                document.getElementById('updated-object').innerHTML = formatObject(updatedProfile);
+                
+                // Verificaciones de inmutabilidad
+                const immutabilityDiv = document.getElementById('immutability-check');
+                immutabilityDiv.innerHTML = `
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿Es el mismo objeto? ${userProfile === updatedProfile ? '<span style="color: #e74c3c">✗ SÍ (ERROR - se mutó)</span>' : '<span style="color: #2ecc71">✓ NO (CORRECTO - inmutabilidad)</span>'}
+                    </div>
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿Es el mismo objeto address? ${originalAddress === updatedProfile.address ? '<span style="color: #e74c3c">✗ SÍ (ERROR - se mutó)</span>' : '<span style="color: #2ecc71">✓ NO (CORRECTO - copia profunda)</span>'}
+                    </div>
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿Es el mismo objeto social? ${originalSocial === updatedProfile.social ? '<span style="color: #e74c3c">✗ SÍ (ERROR - se mutó)</span>' : '<span style="color: #2ecc71">✓ NO (CORRECTO - copia profunda)</span>'}
+                    </div>
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿Es el mismo objeto hobbies? ${originalHobbies === updatedProfile.hobbies ? '<span style="color: #e74c3c">✗ SÍ (ERROR - se mutó)</span>' : '<span style="color: #2ecc71">✓ NO (CORRECTO - copia profunda)</span>'}
+                    </div>
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿La ciudad original sigue siendo "Anytown"? ${originalUserProfile.address.city === "Anytown" ? '<span style="color: #2ecc71">✓ SÍ (CORRECTO - inmutabilidad)</span>' : '<span style="color: #e74c3c">✗ NO (ERROR - se mutó)</span>'}
+                    </div>
+                    <div style="background-color: #27ae60; color: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+                        ✅ ¿La ciudad actualizada es "New City"? ${updatedProfile.address.city === "New City" ? '<span style="color: #2ecc71">✓ SÍ (CORRECTO - actualización)</span>' : '<span style="color: #e74c3c">✗ NO (ERROR - no se actualizó)</span>'}
+                    </div>
+                `;
+                
+                // Mostrar mensaje de éxito
+                resultsDiv.innerHTML = '<div style="background-color: #27ae60; color: white; padding: 15px; border-radius: 4px; margin: 10px 0;">✅ Ejemplo ejecutado correctamente. Verifica las comparaciones y verificaciones de inmutabilidad arriba.</div>';
+                
+                // También mostrar en consola real
+                console.log("=== EJEMPLO DEL LABORATORIO ===");
+                console.log("Objeto original:", userProfile);
+                console.log("Objeto actualizado:", updatedProfile);
+                console.log("¿Es el mismo objeto?", userProfile === updatedProfile);
+                console.log("¿Es el mismo objeto address?", userProfile.address === updatedProfile.address);
+                console.log("¿Es el mismo objeto social?", userProfile.social === updatedProfile.social);
+                
+            } catch (error) {
+                document.getElementById('results').innerHTML = `
+                    <div style="background-color: #e74c3c; color: white; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                        ❌ Error: ${error.message}
+                    </div>
+                `;
+                console.error("Error en el ejemplo:", error);
+            }
+        }
+        
+        // Ejecutar automáticamente al cargar la página
+        window.onload = runExample;
+    </script>
+</body>
+</html>
