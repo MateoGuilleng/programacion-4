@@ -1,0 +1,16 @@
+{
+  "name": "game-backend",
+  "version": "1.0.0",
+  "description": "Backend para juego simple con CRUD operations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["node", "express", "backend", "game", "crud"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
